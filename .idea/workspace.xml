@@ -1,21 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca74c20b-3ddb-4af5-b0bf-263aec6fb780" name="Default Changelist" comment="" />
+    <list default="true" id="ca74c20b-3ddb-4af5-b0bf-263aec6fb780" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proSrvTool/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/proSrvTool/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proSrvTool/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/proSrvTool/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1avK6k13aKOkINXNdjP9JRqvjTm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/rs" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\python\proSrvTool\static\rs" />
+      <recent name="D:\python\proSrvTool\static\js" />
+      <recent name="D:\python\proSrvTool\templates\base" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="proSrvTool" type="Python.DjangoServer" factoryName="Django server">
@@ -24,14 +55,15 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="proSrvTool.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="D:\python\proSrvTool\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
+      <option name="port" value="8001" />
       <option name="host" value="" />
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="" />
@@ -65,10 +97,70 @@
       <option name="presentableId" value="Default" />
       <updated>1587610453053</updated>
       <workItem from="1587610454242" duration="41000" />
+      <workItem from="1587610753201" duration="2515000" />
+      <workItem from="1587627454692" duration="1856000" />
+      <workItem from="1587629557607" duration="6377000" />
+      <workItem from="1587637112764" duration="10693000" />
+      <workItem from="1587648693098" duration="468000" />
+      <workItem from="1587649423083" duration="3085000" />
+      <workItem from="1587652889212" duration="516000" />
+      <workItem from="1587653448330" duration="69000" />
+      <workItem from="1587685744461" duration="704000" />
+      <workItem from="1587688401620" duration="1060000" />
+      <workItem from="1587689528509" duration="1452000" />
+      <workItem from="1587691119000" duration="3640000" />
+      <workItem from="1587696853724" duration="4356000" />
+      <workItem from="1587711251174" duration="1501000" />
+      <workItem from="1587713254501" duration="808000" />
+      <workItem from="1587714556301" duration="1459000" />
+      <workItem from="1587716099161" duration="2201000" />
+      <workItem from="1587718417685" duration="3237000" />
+      <workItem from="1587777669229" duration="295000" />
+      <workItem from="1587778066524" duration="11024000" />
+      <workItem from="1587795804946" duration="247000" />
+      <workItem from="1587796184464" duration="1006000" />
+      <workItem from="1587814535900" duration="75000" />
+      <workItem from="1587815080244" duration="887000" />
+      <workItem from="1587816607722" duration="1929000" />
+      <workItem from="1587818655932" duration="217000" />
+      <workItem from="1587819242334" duration="2044000" />
+      <workItem from="1587825677140" duration="1550000" />
+      <workItem from="1587885235724" duration="66000" />
+      <workItem from="1587885708547" duration="819000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="183" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587635259916">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="414" y="183" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1587635259916" />
+    <state width="1877" height="226" key="GridCell.Tab.0.bottom" timestamp="1587886527213">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="226" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587886527213" />
+    <state width="1877" height="226" key="GridCell.Tab.0.center" timestamp="1587886527213">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="226" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587886527213" />
+    <state width="1877" height="226" key="GridCell.Tab.0.left" timestamp="1587886527213">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="226" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587886527213" />
+    <state width="1877" height="226" key="GridCell.Tab.0.right" timestamp="1587886527213">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="226" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587886527213" />
+    <state x="463" y="170" key="SettingsEditor" timestamp="1587627530018">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="463" y="170" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1587627530018" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1587653475758">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1587653475758" />
   </component>
 </project>

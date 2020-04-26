@@ -1,0 +1,414 @@
+{% extends "../base/superOpen.html" %}
+
+
+{% block stylePage %}
+    <style>
+        .toolbar{
+            position: fixed;
+            left: 5px;
+            right: 5px;
+            top: 60px;
+            height: 90px;
+            background-color: #DDDDEE;
+            border: #BBBBDD 1px solid;
+            overflow: hidden;
+        }
+        .operBtn{
+            display: inline-block;
+            position: absolute;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .normalBtn{
+            top: 24px;
+            width: 90px;
+            border: #AAAAAA 1px solid;
+            background-color: #FFFFEE;
+            color: #404040;
+        }
+        .direH{
+            top: 24px;
+            width: 80px;
+            background-color: #6666BB;
+            color: white;
+        }
+        .direV{
+            width: 80px;
+            background-color: #6666BB;
+            color: white;
+        }
+        .contents{
+            position: fixed;
+            left: 5px;
+            right: 5px;
+            top: 152px;
+            bottom: 5px;
+            padding: 2px;
+            border: #BBBBDD 1px solid;
+            border-top: none;
+            overflow: scroll;
+        }
+        .contents label{
+            position: absolute;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 30;
+        }
+        .cover-layer{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: black;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        .dialogCus{
+            border: darkgray 1px solid;
+            border-radius: 4px;
+            position: fixed;
+            left: 30%;
+            top: 30%;
+            padding: 10px 20px;
+            background-color: white;
+            z-index: 20;
+        }
+        table, tr, td{
+            border: none;
+            background-color: rgb(242, 242, 242);
+            font-size: 14px;
+        }
+        table{
+            border-bottom: #E2E2E2 1px solid;
+            width: 100%;
+        }
+        td{
+            height: 48px;
+        }
+        .col1{
+            width: 150px;
+            padding-left: 50px;
+        }
+        .col2{
+            width: 200px;
+        }
+        .col2 input{
+            width: 194px;
+            height: 32px;
+        }
+        .col2 select{
+            width: 198px;
+            height: 36px;
+        }
+        .inputBtn{
+            width: 98px;
+            height: 30px;
+            font-size: 14px;
+            line-height: 30px;
+            border: darkgray 1px solid;
+            border-radius: 4px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block contents %}
+    <div class="toolbar">
+        {% csrf_token %}
+        <span class="operBtn normalBtn" style="border: none; left: 20px; ">
+            <span class="operBtn normalBtn" style="z-index: 100; top: 0; left: 0; ">背景图</span>
+            <input id="uploadB" class="operBtn normalBtn" type="file" value="上传文件" style="z-index: 120; opacity: 0; top: 0; left: 0; ">
+        </span>
+        <span class="operBtn normalBtn" style="border: none; left: 120px; ">
+            <span class="operBtn normalBtn" style="z-index: 100; top: 0; left: 0; ">前景图</span>
+            <input id="uploadF" class="operBtn normalBtn" type="file" value="上传文件" style="z-index: 120; opacity: 0; top: 0; left: 0; ">
+        </span>
+        <span id="textNew" class="operBtn normalBtn" style="left: 220px; ">增加文字</span>
+        <span id="moveL" class="operBtn direH" onclick="move('left'); " style="border-top-left-radius: 100px; border-bottom-left-radius: 100px; left: 335px; ">左移</span>
+        <span id="moveT" class="operBtn direV" onclick="move('top'); " style="top: 3px; border-top-left-radius: 100px; border-top-right-radius: 100px; left: 425px; ">上移</span>
+        <span id="moveB" class="operBtn direV" onclick="move('bottom'); " style="bottom: 3px; border-bottom-left-radius: 100px; border-bottom-right-radius: 100px; left: 425px; ">下移</span>
+        <span id="moveR" class="operBtn direH" onclick="move('right'); " style="border-top-right-radius: 100px; border-bottom-right-radius: 100px; left: 515px; ">右移</span>
+        <select id="selectedObj" class="operBtn normalBtn" style="left: 620px; top: 24px; " textNum="0"></select>
+        <span id="textDel" class="operBtn normalBtn" style="left: 720px; ">删除</span>
+        <span id="imgComp" class="operBtn normalBtn" style="left: 820px; ">合成</span>
+    </div>
+    <div class="contents">
+        <div id="contents" style="position: relative; ">
+            <div id="imgBack" style="position: absolute; z-index: 10; "></div>
+            <div id="imgFront" style="position: absolute; z-index: 20; cursor: pointer; " onclick="objSel('#imgFront img'); "></div>
+        </div>
+    </div>
+    <div class="cover-layer hide"></div>
+    <div id="dialogSet" class="dialogCus hide">
+        <h3>文本框设置：<span id="labelName" targetID=""></span></h3>
+        <table>
+            <tr>
+                <td class="col1">文字</td>
+                <td class="col2"><input id="labelText" type="text"></td>
+            </tr>
+            <tr>
+                <td class="col1">字体大小</td>
+                <td class="col2"><input id="labelSize" type="number" value="20"></td>
+            </tr>
+            <tr>
+                <td class="col1">颜色</td>
+                <td class="col2"><input id="labelColor" type="color" value="#ff0000"></td>
+            </tr>
+        </table>
+        <p>
+            <input id="setOK" class="inputBtn" type="button" value="确定" style="margin-left: 200px; ">
+            <input id="setTest" class="inputBtn" type="button" value="测试">
+            <input id="setCancel" class="inputBtn" type="button" value="取消">
+        </p>
+    </div>
+{% endblock %}
+
+
+{% block scriptPage %}
+    <script>
+        $(function () {
+            $("#uploadB").change(function () {
+                var file = document.getElementById("uploadB").files[0];
+                if (file) {
+                    var fd = new FormData();
+                    fd.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+                    fd.append("uploadB", file);
+
+                    $.ajax({
+                        url: "{% url 'toolsOpen:imgBack' %}",
+                        type: "POST",
+                        data: fd,
+                        dataType: "JSON",
+                        processData: false,                 /*告诉jQuery不要当做字符串做特殊处理*/
+                        contentType: false,                 /*告诉jQuery不要当做字符串做特殊处理*/
+                        success: function (data, state, xhr) {
+                            if (data.result) {
+                                fileOK($("#imgBack"), data.data);
+                                $("#uploadB").val("");
+                            } else {
+                                alert(data.msg);
+                            }
+                        },
+                        error: function () {
+                            console.log("error!")
+                        }
+                    });
+                }
+            });
+            $("#uploadF").change(function () {
+                var file = document.getElementById("uploadF").files[0];
+                if (file) {
+                    var fd = new FormData();
+                    fd.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+                    fd.append("uploadF", file);
+
+                    $.ajax({
+                        url: "{% url 'toolsOpen:imgFront' %}",
+                        type: "POST",
+                        data: fd,
+                        dataType: "JSON",
+                        processData: false,                 /*告诉jQuery不要当做字符串做特殊处理*/
+                        contentType: false,                 /*告诉jQuery不要当做字符串做特殊处理*/
+                        success: function (data, state, xhr) {
+                            if (data.result) {
+                                fileOK($("#imgFront"), data.data);
+                                $("#uploadF").val("");
+                            } else {
+                                alert(data.msg);
+                            }
+                        },
+                        error: function () {
+                            console.log("error!")
+                        }
+                    });
+                }
+            });
+            $("#imgComp").click(function () {
+                var objData = {};
+                objData["imgBack"] = $("#imgBack img").attr("src");
+                if ($("#imgFront img")[0]) {
+                    objData["imgFront"] = {
+                        "type": "img",
+                        "beginX": $("#imgFront").css("left"),
+                        "beginY": $("#imgFront").css("top"),
+                        "file": $("#imgFront img").attr("src")
+                    };
+                }
+                $(".contents label").each(function () {
+                    objData[$(this).attr("id")] = {
+                        "type": "text",
+                        "beginX": $(this).css("left"),
+                        "beginY": $(this).css("top"),
+                        "text": $(this).text(),
+                        "fontSize": $(this).css("font-size"),
+                        "fontColor": $(this).css("color")
+                    }
+                });
+                $.ajax({
+                    url: "{% url 'toolsOpen:imgComp' %}",
+                    type: "POST",
+                    data: {"dataComp": JSON.stringify(objData), "csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val()},
+                    dataType: "JSON",
+                    success: function (data, state, xhr) {
+                        if (data.result) {
+                            compOK(data.data);
+                        } else {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function () {
+                        console.log("error!");
+                    }
+                });
+            });
+            $("#textNew").click(function () {
+                var tagText = document.createElement("label");
+                $(tagText).css("font-family", "仿宋");
+                $(tagText).css("font-size", "18px");
+                $(tagText).css("color", "#222222");
+                $(tagText).attr("onclick", "objSel(this); ");
+                $(tagText).attr("ondblclick", "labelSet(this); ");
+                $("#contents").append(tagText);
+                objNew($(tagText)[0]);
+            });
+            $("#textDel").click(function () {
+                var obj = $("#selectedObj option:selected");
+                if (obj) {
+                    $("#" + obj.val()).remove();
+                    obj.remove();
+                }
+            });
+            $("#setOK").click(function () {
+                var obj = $("#selectedObj option:selected");
+                if (obj) {
+                    $("#" + obj.val()).text($("#labelText").val());
+                    $("#" + obj.val()).css("font-size", $("#labelSize").val() + "px");
+                    $("#" + obj.val()).css("color", $("#labelColor").val());
+                }
+                $(".cover-layer").addClass("hide");
+                $("#dialogSet").addClass("hide");
+            });
+            $("#setCancel").click(function () {
+                $(".cover-layer").addClass("hide");
+                $("#dialogSet").addClass("hide");
+            });
+            drag($("#imgFront"));
+        });
+        function move(dire) {
+            var sObj = $("#selectedObj").val();
+            var bRever = false;
+            if (dire === "right") {
+                dire = "left";
+                bRever = true;
+            }
+            if (dire === "bottom") {
+                dire = "top";
+                bRever = true;
+            }
+            if (sObj !== "") {
+                var targetObj;
+                if ($("#" + sObj)[0].tagName === "IMG") {
+                    targetObj = $("#" + sObj).parent();
+                } else {
+                    targetObj = $("#" + sObj)
+                }
+                var num = targetObj.css(dire);
+                num = num.substring(0, num.length - 2);
+                if (bRever) {
+                    num = parseInt(num) + 1;
+                } else {
+                    num = parseInt(num) - 1;
+                }
+                num += "px";
+                targetObj.css(dire, num);
+            } else {
+                alert("请选择控件");
+            }
+        }
+        function drag(obj){
+            obj.bind("mousedown", start);
+
+            function start(event) {
+                deltaX=event.clientX-obj.offset().left;
+                deltaY=event.clientY-obj.offset().top;
+
+                $(document).bind("mousemove", move);
+                $(document).bind("mouseup", stop);
+
+                //阻止默认行为的发生
+                //阻止事件冒泡的发生
+                return false;
+            }
+
+            function move(event) {
+                obj.css({
+                    "left":(event.clientX-5-deltaX)+"px",
+                    "top":(event.clientY-152-deltaY)+"px"
+                });
+                return false;
+            }
+
+            function stop() {
+                $(document).unbind("mousemove", move);
+                $(document).unbind("mouseup", stop);
+            }
+        }
+        function fileOK(tag, filename) {
+            tag.empty();
+            var imgTag = document.createElement("img");
+            imgTag.src = filename;
+            tag.append(imgTag);
+            if (tag.attr("id") === "imgFront") {
+                objNew(imgTag);
+            }
+        }
+        function objNew(tag) {
+            {#新建标签#}
+            var tagOpt = document.createElement("option");
+            if ($(tag).is("img")) {
+                $(tag).attr("id", "i1");
+                $(tagOpt).text("前景图片");
+            } else {
+                var num = parseInt($("#selectedObj").attr("textNum")) + 1;
+                $(tag).attr("id", "t" + num);
+                $(tag).text("文本框" + num);
+                $(tagOpt).text("文本" + num);
+                $("#selectedObj").attr("textNum", num);
+                drag($(tag));
+            }
+            $(tagOpt).val($(tag).attr("id"));
+            $("#selectedObj").append(tagOpt);
+            objSel(tag);
+        }
+        function objDel(tag) {
+            $("#selectedObj option[value='" + $(tag).attr("id") + "']").remove();
+            $(tag).remove();
+        }
+        function objSel(tag) {
+            $("#selectedObj").val($(tag).attr("id"));
+        }
+        function labelSet(tag) {
+            $("#labelText").val($(tag).text());
+            sTmp = $(tag).css("font-size");
+            $("#labelSize").val(sTmp.substring(0, sTmp.length - 2));
+            $("#labelColor").val($(tag).css("color"));
+            $(".cover-layer").removeClass("hide");
+            $("#dialogSet").removeClass("hide");
+        }
+        function compOK(filename) {
+            $("#imgBack").empty();
+            objDel($("#imgFront img")[0]);
+            $("#imgFront").css("left", "0");
+            $("#imgFront").css("top", "0");
+            $("#contents label").each(function () {
+                objDel(this);
+            });
+            fileOK($("#imgBack"), filename);
+        }
+    </script>
+{% endblock %}
