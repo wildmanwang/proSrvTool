@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca74c20b-3ddb-4af5-b0bf-263aec6fb780" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proSrvTool/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/proSrvTool/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proSrvTool/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/proSrvTool/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,6 +124,7 @@
       <workItem from="1587825677140" duration="1550000" />
       <workItem from="1587885235724" duration="66000" />
       <workItem from="1587885708547" duration="819000" />
+      <workItem from="1587895417904" duration="70000" />
     </task>
     <servers />
   </component>
