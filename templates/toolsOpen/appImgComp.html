@@ -140,19 +140,33 @@
     <div class="contents">
         <div id="contents" style="position: relative; ">
             <div id="imgBack" style="position: absolute; z-index: 10; "></div>
-            <div id="imgFront" style="position: absolute; z-index: 20; cursor: pointer; " onclick="objSel('#imgFront img'); "></div>
+            <div id="imgFront" style="position: absolute; z-index: 20; cursor: pointer; " onclick="objSel('#imgFront img'); " ondblclick="imageSet(this); " rotate="0"></div>
         </div>
     </div>
     <div class="cover-layer hide"></div>
-    <div id="dialogSet" class="dialogCus hide">
-        <h3>文本框设置：<span id="labelName" targetID=""></span></h3>
+    <div id="dialogSetTxt" class="dialogCus hide">
+        <h3>文本框设置</h3>
         <table>
             <tr>
                 <td class="col1">文字</td>
                 <td class="col2"><input id="labelText" type="text"></td>
             </tr>
             <tr>
-                <td class="col1">字体大小</td>
+                <td class="col1">字体</td>
+                <td class="col2"><select id="labelFont">
+                    <option value="仿宋">仿宋</option>
+                    <option value="宋体">宋体</option>
+                    <option value="黑体">黑体</option>
+                    <option value="楷体">楷体</option>
+                    <option value="华文细黑">华文细黑</option>
+                </select></td>
+            </tr>
+            <tr class="hide">
+                <td class="col1">加粗</td>
+                <td class="col2"><input id="labelBold" type="checkbox" style="width: 32px; "></td>
+            </tr>
+            <tr>
+                <td class="col1">大小</td>
                 <td class="col2"><input id="labelSize" type="number" value="20"></td>
             </tr>
             <tr>
@@ -161,9 +175,34 @@
             </tr>
         </table>
         <p>
-            <input id="setOK" class="inputBtn" type="button" value="确定" style="margin-left: 200px; ">
-            <input id="setTest" class="inputBtn" type="button" value="测试">
-            <input id="setCancel" class="inputBtn" type="button" value="取消">
+            <input id="setTxtOK" class="inputBtn" type="button" value="确定" style="margin-left: 200px; ">
+            <input id="setTxtCancel" class="inputBtn" type="button" value="取消">
+        </p>
+    </div>
+    <div id="dialogSetImg" class="dialogCus hide">
+        <h3>图像设置</h3>
+        <table>
+            <tr>
+                <td class="col1">图片宽度</td>
+                <td class="col2">
+                    <input id="imgWidthL2" type="button" value="1/2" style="width: 36px; ">
+                    <input id="imgWidthL" type="button" value="-" style="width: 36px; ">
+                    <label id="imgWidthT" style="display: inline-block; text-align: center; width: 40px; "></label>
+                    <input id="imgWidthM" type="button" value="+" style="width: 36px; ">
+                    <input id="imgWidthM2" type="button" value="*2" style="width: 36px; ">
+                </td>
+            </tr>
+            <tr class="hide">
+                <td class="col1">倾斜角度</td>
+                <td class="col2">
+                    <input id="imgRotateL" type="button" value="-" style="width: 50px; ">
+                    <label id="imgRotateT" style="display: inline-block; text-align: center; width: 50px; "></label>
+                    <input id="imgRotateM" type="button" value="+" style="width: 50px; ">
+                </td>
+            </tr>
+        </table>
+        <p>
+            <input id="setImgOK" class="inputBtn" type="button" value="确定" style="margin-left: 200px; ">
         </p>
     </div>
 {% endblock %}
@@ -236,6 +275,8 @@
                         "type": "img",
                         "beginX": $("#imgFront").css("left"),
                         "beginY": $("#imgFront").css("top"),
+                        "rotate": $("#imgFront").attr("rotate"),
+                        "width": $("#i1").css("width"),
                         "file": $("#imgFront img").attr("src")
                     };
                 }
@@ -245,7 +286,9 @@
                         "beginX": $(this).css("left"),
                         "beginY": $(this).css("top"),
                         "text": $(this).text(),
+                        "fontFamily": $(this).css("font-family"),
                         "fontSize": $(this).css("font-size"),
+                        "fontWeight": $(this).css("font-weight"),
                         "fontColor": $(this).css("color")
                     }
                 });
@@ -283,19 +326,85 @@
                     obj.remove();
                 }
             });
-            $("#setOK").click(function () {
+            $("#setTxtOK").click(function () {
                 var obj = $("#selectedObj option:selected");
                 if (obj) {
                     $("#" + obj.val()).text($("#labelText").val());
+                    $("#" + obj.val()).css("font-family", $("#labelFont").val());
                     $("#" + obj.val()).css("font-size", $("#labelSize").val() + "px");
+                    if ($("#labelBold").prop("checked")) {
+                        $("#" + obj.val()).css("font-weight", "700");
+                    } else {
+                        $("#" + obj.val()).css("font-weight", "400");
+                    }
                     $("#" + obj.val()).css("color", $("#labelColor").val());
                 }
                 $(".cover-layer").addClass("hide");
-                $("#dialogSet").addClass("hide");
+                $("#dialogSetTxt").addClass("hide");
             });
-            $("#setCancel").click(function () {
+            $("#setTxtCancel").click(function () {
                 $(".cover-layer").addClass("hide");
-                $("#dialogSet").addClass("hide");
+                $("#dialogSetTxt").addClass("hide");
+            });
+            $("#setImgOK").click(function () {
+                $(".cover-layer").addClass("hide");
+                $("#dialogSetImg").addClass("hide");
+            });
+            $("#imgWidthL2").click(function () {
+                var imgWidth = $("#imgWidthT").text();
+                imgWidth = parseInt(imgWidth.substring(0, imgWidth.length - 2));
+                if (imgWidth > 2) {
+                    imgWidth /= 2;
+                }
+                imgWidth = imgWidth + "px";
+                $("#imgWidthT").text(imgWidth);
+                $("#i1").css("width", imgWidth);
+            });
+            $("#imgWidthL").click(function () {
+                var imgWidth = $("#imgWidthT").text();
+                imgWidth = parseInt(imgWidth.substring(0, imgWidth.length - 2));
+                if (imgWidth > 1) {
+                    imgWidth -= 1;
+                }
+                imgWidth = imgWidth + "px";
+                $("#imgWidthT").text(imgWidth);
+                $("#i1").css("width", imgWidth);
+            });
+            $("#imgWidthM").click(function () {
+                var imgWidth = $("#imgWidthT").text();
+                imgWidth = parseInt(imgWidth.substring(0, imgWidth.length - 2));
+                if (imgWidth > 1) {
+                    imgWidth += 1;
+                }
+                imgWidth = imgWidth + "px";
+                $("#imgWidthT").text(imgWidth);
+                $("#i1").css("width", imgWidth);
+            });
+            $("#imgWidthM2").click(function () {
+                var imgWidth = $("#imgWidthT").text();
+                imgWidth = parseInt(imgWidth.substring(0, imgWidth.length - 2));
+                if (imgWidth > 1) {
+                    imgWidth *= 2;
+                }
+                imgWidth = imgWidth + "px";
+                $("#imgWidthT").text(imgWidth);
+                $("#i1").css("width", imgWidth);
+            });
+            $("#imgRotateL").click(function () {
+                var imgRotate = $("#imgRotateT").text();
+                imgRotate = parseInt(imgRotate);
+                imgRotate -=1;
+                $("#imgRotateT").text(imgRotate);
+                $("#imgFront").css("transform", "rotate(" + imgRotate + "deg)");
+                $("#imgFront").attr("rotate", imgRotate);
+            });
+            $("#imgRotateM").click(function () {
+                var imgRotate = $("#imgRotateT").text();
+                imgRotate = parseInt(imgRotate);
+                imgRotate +=1;
+                $("#imgRotateT").text(imgRotate);
+                $("#imgFront").css("transform", "rotate(" + imgRotate + "deg)");
+                $("#imgFront").attr("rotate", imgRotate);
             });
             drag($("#imgFront"));
         });
@@ -394,11 +503,23 @@
         }
         function labelSet(tag) {
             $("#labelText").val($(tag).text());
+            $("#labelFont").val($(tag).css("font-family"));
             sTmp = $(tag).css("font-size");
             $("#labelSize").val(sTmp.substring(0, sTmp.length - 2));
+            if ($(tag).css("font-weight") === "700") {
+                $("#labelBold").prop("checked", true);
+            } else {
+                $("#labelBold").prop("checked", false);
+            }
             $("#labelColor").val($(tag).css("color"));
             $(".cover-layer").removeClass("hide");
-            $("#dialogSet").removeClass("hide");
+            $("#dialogSetTxt").removeClass("hide");
+        }
+        function imageSet(tag) {
+            $("#imgWidthT").text($(tag).css("width"));
+            $("#imgRotateT").text($(tag).attr("rotate"));
+            $(".cover-layer").removeClass("hide");
+            $("#dialogSetImg").removeClass("hide");
         }
         function compOK(filename) {
             $("#imgBack").empty();

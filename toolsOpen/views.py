@@ -13,14 +13,17 @@ def appImgUploadBack(request):
         "data": None,
         "msg": None
     }
-    myfile = request.FILES.get("uploadB")
-    filename = myfile.name
-    filename = os.path.join(r"static\upload", filename)
-    with open(filename, "wb") as f:
-        for item in myfile.chunks():
-            f.write(item)
-    rtn["result"] = True
-    rtn["data"] = "\\" + filename
+    try:
+        myfile = request.FILES.get("uploadB")
+        filename = myfile.name
+        filename = os.path.join(r"static\upload", filename)
+        with open(os.path.join(os.path.dirname(os.path.dirname(__file__)), filename), "wb") as f:
+            for item in myfile.chunks():
+                f.write(item)
+        rtn["result"] = True
+        rtn["data"] = "\\" + filename
+    except Exception as e:
+        rtn["msg"] = str(e)
     rep = HttpResponse(json.dumps(rtn))
     rep["X-Frame-Options"] = "SAMEORIGIN"  # 允许在Frame框架中显示
     return rep
@@ -32,18 +35,20 @@ def appImgUploadFront(request):
         "data": None,
         "msg": None
     }
-    if request.method == "POST":
+    try:
         myfile = request.FILES.get("uploadF")
         filename = myfile.name
         filename = os.path.join(r"static\upload", filename)
-        with open(filename, "wb") as f:
+        with open(os.path.join(os.path.dirname(os.path.dirname(__file__)), filename), "wb") as f:
             for item in myfile.chunks():
                 f.write(item)
         rtn["result"] = True
         rtn["data"] = "\\" + filename
-        rep = HttpResponse(json.dumps(rtn))
-        rep["X-Frame-Options"] = "SAMEORIGIN"  # 允许在Frame框架中显示
-        return rep
+    except Exception as e:
+        rtn["msg"] = str(e)
+    rep = HttpResponse(json.dumps(rtn))
+    rep["X-Frame-Options"] = "SAMEORIGIN"  # 允许在Frame框架中显示
+    return rep
 
 
 def appImgComp(request):
