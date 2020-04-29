@@ -185,11 +185,11 @@
             <tr>
                 <td class="col1">图片宽度</td>
                 <td class="col2">
-                    <input id="imgWidthL2" type="button" value="1/2" style="width: 36px; ">
+                    <input id="imgWidthL2" type="button" value="0.8" style="width: 36px; ">
                     <input id="imgWidthL" type="button" value="-" style="width: 36px; ">
                     <label id="imgWidthT" style="display: inline-block; text-align: center; width: 40px; "></label>
                     <input id="imgWidthM" type="button" value="+" style="width: 36px; ">
-                    <input id="imgWidthM2" type="button" value="*2" style="width: 36px; ">
+                    <input id="imgWidthM2" type="button" value="*1.2" style="width: 36px; ">
                 </td>
             </tr>
             <tr class="hide">
@@ -354,7 +354,7 @@
                 var imgWidth = $("#imgWidthT").text();
                 imgWidth = parseInt(imgWidth.substring(0, imgWidth.length - 2));
                 if (imgWidth > 2) {
-                    imgWidth /= 2;
+                    imgWidth *= 0.8;
                 }
                 imgWidth = imgWidth + "px";
                 $("#imgWidthT").text(imgWidth);
@@ -384,7 +384,7 @@
                 var imgWidth = $("#imgWidthT").text();
                 imgWidth = parseInt(imgWidth.substring(0, imgWidth.length - 2));
                 if (imgWidth > 1) {
-                    imgWidth *= 2;
+                    imgWidth *= 1.2;
                 }
                 imgWidth = imgWidth + "px";
                 $("#imgWidthT").text(imgWidth);
