@@ -22,8 +22,8 @@ def imgExt(objs):
             posY = int(float(objs[item]["beginY"][:-2]))
             if objs[item]["type"] == "img":
                 fileExt = objs[item]["file"][1:]
-                fileWidth = int(objs[item]["width"][:-2])
-                fileRotate = int(objs[item]["rotate"])
+                fileWidth = int(float(objs[item]["width"][:-2]))
+                fileRotate = int(float(objs[item]["rotate"]))
                 img = imgCImg(img, fileExt, posX, posY, fileWidth, fileRotate)
             elif objs[item]["type"] == "text":
                 sText = objs[item]["text"]

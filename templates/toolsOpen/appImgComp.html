@@ -136,6 +136,7 @@
         <select id="selectedObj" class="operBtn normalBtn" style="left: 620px; top: 24px; " textNum="0"></select>
         <span id="textDel" class="operBtn normalBtn" style="left: 720px; ">删除</span>
         <span id="imgComp" class="operBtn normalBtn" style="left: 820px; ">合成</span>
+        <span id="imgDown" class="operBtn normalBtn" style="left: 820px; " onclick="downloadImage('\\static\\upload', '背景30101413.PNG'); ">下载</span>
     </div>
     <div class="contents">
         <div id="contents" style="position: relative; ">
@@ -299,6 +300,7 @@
                     dataType: "JSON",
                     success: function (data, state, xhr) {
                         if (data.result) {
+                            console.log(data);
                             compOK(data.data);
                         } else {
                             alert(data.msg);
@@ -530,6 +532,20 @@
                 objDel(this);
             });
             fileOK($("#imgBack"), filename);
+        }
+        function downloadImage(path,imgName) {
+            var _OBJECT_URL;
+            var request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', function (e) {
+                if (request.readyState == 4) {
+                    _OBJECT_URL = URL.createObjectURL(request.response);
+                    var $a = $("<a></a>").attr("href", _OBJECT_URL).attr("download", imgName);
+                    $a[0].click();
+                }
+            });
+            request.responseType = 'blob';
+            request.open('get', path);
+            request.send();
         }
     </script>
 {% endblock %}
